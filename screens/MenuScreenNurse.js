@@ -37,7 +37,10 @@ Patients.map((value,i)=>{
   
   <Button    
   buttonStyle={{marginRight: '25%',}}          
-   title='show'/>
+   title='show'
+   onPress={()=>navigation.navigate('NursePager')}
+   />
+    
   <Button 
   buttonStyle={{
     marginLeft: '25%',

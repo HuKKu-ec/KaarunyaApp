@@ -23,7 +23,8 @@ import { View } from 'react-native';
 // import DoctorDrawer from './screens/DoctorDrawer';
 import CreatePatient from './screens/CreatePatient';
 import DoctorPager from './screens/DoctorPager';
-
+import NursePager from './screens/NursePager';
+import VolPager from './screens/VolPager';
 import { NavigationContainer } from '@react-navigation/native';
 
 
@@ -48,12 +49,14 @@ const MyStack=()=> {
       <Stack.Screen name="CreateNurse" component={CreateNurse} options={{headerShown:false}}/>
       <Stack.Screen name="MenuScreenNurse" component={MenuScreenNurse} options={{headerShown:false}}/>
       <Stack.Screen name="AddDetailsNurse" component={AddDetailsNurse} options={{headerShown:false}}/>
+      <Stack.Screen name="NursePager" component={NursePager} options={{headerShown:false}}/>
 
 
       <Stack.Screen name="VolLogin" component={VolLogin} options={{headerShown:false}}/>
       <Stack.Screen name="CreateVol" component={CreateVol} options={{headerShown:false}}/>
       <Stack.Screen name="MenuScreenVol" component={MenuScreenVol} options={{headerShown:false}}/>
       <Stack.Screen name="AddDetailsVol" component={AddDetailsVol} options={{headerShown:false}}/>
+      <Stack.Screen name="VolPager" component={VolPager} options={{headerShown:false}}/>
       {/* <Stack.Screen name="DoctorDrawer" component={DoctorDrawer} options={{headerShown:false}}/> */}
       <Stack.Screen name="CreatePatient" component={CreatePatient} options={{headerShown:false}}/>
 

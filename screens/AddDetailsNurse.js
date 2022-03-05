@@ -2,33 +2,92 @@ import * as React from 'react';
 import { Button, TextInput,Text, View,TouchableOpacity,ScrollView} from 'react-native';
 import styles from './styles';
 import { useState } from 'react';
+import { db} from '../firebase/config';
+import { doc ,addDoc, updateDoc,collection } from 'firebase/firestore';
 
 
-const AddDetailsNurse=({ navigation }) => {
-    const [text, setText] = useState('');
-    const [number, onChangeNumber] = React.useState(null);
+
+const AddDetailsNurse=({ navigation,route }) => {
+    const d = new Date();
+    const name=route.params.value.name
+    const age=route.params.value.age
+    const [date, setDate] = useState(`${d.getUTCDate()}/${d.getUTCMonth()}/${d.getUTCFullYear()}`);
+    const [nurseName, setNurseName] = useState('');
+    const [teamMemb, setTeamMemb] = useState('');
+    const [medicines, setMedicines] = useState('');
+    const [badHabit, setBadHabit] = useState('');
+    const [primary, setPrimary] = useState('');
+    const [hobbie, setHobbie] = useState('');
+    const [cardColor, setCardColor] = useState('');
+    const [pension, setPension] = useState('');
+    const [insurence, setInsurence] = useState('');
+    const [pulse, setPulse] = useState('');
+    const [bp, setBp] = useState('');
+    const [temp, setTemp] = useState('');
+    const [clean, setClean] = useState('');
+    const [phyIssue, setPhyIssue] = useState('');
+    const [phyCond, setPhyCond] = useState('');
+    const [illness, setIllness] = useState('');
+    const [hygience, setHygience] = useState('');
+
+    const onPressAdd=()=>{
+      const myDoc=collection(db,"visitNurse")
+      const docData={
+         
+         pid:`${route.params.value.pid}`,
+         date,
+         nurseName,
+         name,
+         age,
+         teamMemb,
+         medicines,
+         badHabit,
+         primary,
+         hobbie,
+         cardColor,
+         pension,
+         insurence,
+         pulse,
+         bp,
+         temp,
+         clean,
+         phyIssue,
+         phyCond,
+         illness,
+         hygience
+          
+      }
+     
+      addDoc(myDoc,docData).then(()=>{alert('Added')}).catch((error)=>{alert(error.message)})
+    }
     return (
        <ScrollView >
-      <View style={styles.background} style={{marginTop:'25%'}}>
-         
-      
+      <View style={styles.background} styles={{marginTop:'25%'}}>
       <View style={{flexDirection:'row'}}>
-         <Text style={{marginLeft:'10%'}}>Name:</Text>
-         <Text style={{marginLeft:'60%'}}>Age:</Text>
+         <Text style={{marginLeft:'5%'}}>Name:{name}</Text>
+         <Text style={{marginLeft:'10%'}}>Age:{age}</Text>
       </View>
       
       <View style = {styles.createInputField}>  
             <TextInput style = {styles.addInput}
              placeholder = "Date"
-             onChangeText={text => setText(text)}
+             value={date}
+             editable = {false}
+             onChangeText={text => setDate(text)}
           /> 
+          <TextInput style = {styles.addInput}
+                placeholder = "Nurse Name"
+                value={nurseName}
+                onChangeText={text => setNurseName(text)}
+             /> 
                <TextInput style = {styles.addInput}
                 placeholder = "Team Members"
-                onChangeText={text => setText(addInput)}
+                value={teamMemb}
+                onChangeText={text => setTeamMemb(text)}
              /> 
              <Text style={{fontSize:25}}>Current Medicines</Text> 
 
-<View style={{width:'90%',backgroundColor:'#e5e5e5',alignItems:'center',justifyContent:'center',borderRadius:20,paddingTop:'25%'}}>
+{/* <View style={{width:'90%',backgroundColor:'#e5e5e5',alignItems:'center',justifyContent:'center',borderRadius:20,paddingTop:'25%'}}>
 <TextInput style = {{width:'90%',height: 50,borderWidth:1,textAlign:'left',borderRadius:10,borderColor: '#000',backgroundColor:'#fff',padding:'3%',marginTop:'1%',
 }}
       placeholder = "Dose"
@@ -51,85 +110,96 @@ const AddDetailsNurse=({ navigation }) => {
          <Text style={styles.buttonText}>Add</Text>
      </TouchableOpacity>
      </View>
-     </View>
+     </View> */}
+           <TextInput style = {styles.addInput}
+                placeholder = "Medicines"
+                value={medicines}
+                onChangeText={text => setMedicines(text)}
+             /> 
 
      <TextInput style = {styles.addInput}
                 placeholder = "Bad Habits"
-                onChangeText={text => setText(addInput)}
+                value={badHabit}
+                onChangeText={text => setBadHabit(text)}
              /> 
              <Text style={{fontSize:25}}>Primary Condition </Text>
       <TextInput style = {styles.addInput}
-                placeholder = "Primary Condition"
-                onChangeText={text => setText(addInput)}
+                placeholder = "Primary Condition Details"
+                value={primary}
+                onChangeText={text => setPrimary(text)}
              /> 
       <TextInput style = {styles.addInput}
                 placeholder = "Hobbie"
-                onChangeText={text => setText(addInput)}
+                value={hobbie}
+                onChangeText={text => setHobbie(text)}
              /> 
              <Text style={{fontSize:25}}>Economical Condition </Text>
              <TextInput style = {styles.addInput}
                 placeholder = "Rattion Card Color"
-                onChangeText={text => setText(addInput)}
+                value={cardColor}
+                onChangeText={text => setCardColor(text)}
              /> 
                           <TextInput style = {styles.addInput}
                 placeholder = "Pension"
-                onChangeText={text => setText(addInput)}
+                value={pension}
+                onChangeText={text => setPension(text)}
              /> 
                           <TextInput style = {styles.addInput}
                 placeholder = "Insurence Details"
-                onChangeText={text => setText(addInput)}
+                value={insurence}
+                onChangeText={text => setInsurence(text)}
              /> 
              <Text style={{fontSize:25}}>Physical Condition </Text>
              <TextInput style = {styles.addInput}
                 placeholder = "Pulse"
-                onChangeText={text => setText(addInput)}
+                value={pulse}
+                onChangeText={text => setPulse(text)}
              /> 
                           <TextInput style = {styles.addInput}
                 placeholder = "BP"
-                onChangeText={text => setText(addInput)}
+                value={bp}
+                onChangeText={text => setBp(text)}
              /> 
                           <TextInput style = {styles.addInput}
                 placeholder = "Temperature"
-                onChangeText={text => setText(addInput)}
+                value={temp}
+                onChangeText={text => setTemp(text)}
              /> 
-             <Text style={{fontSize:25}}>Economical Condition </Text>
-             <TextInput style = {styles.addInput}
-                placeholder = "Rattion Card Color"
-                onChangeText={text => setText(addInput)}
-             /> 
-                          <TextInput style = {styles.addInput}
-                placeholder = "Pension"
-                onChangeText={text => setText(addInput)}
-             /> 
+
                           <TextInput style = {styles.addInput}
                 placeholder = "Cleanliness"
-                onChangeText={text => setText(addInput)}
+                value={clean}
+                onChangeText={text => setClean(text)}
              /> 
              <Text style={{fontSize:25}}>Summary </Text>
              <TextInput style = {styles.addInput}
                 placeholder = "Major Physical Issues"
-                onChangeText={text => setText(addInput)}
+                value={phyIssue}
+                onChangeText={text => setPhyIssue(text)}
              /> 
                           <TextInput style = {styles.addInput}
                 placeholder = "Physical Condition"
-                onChangeText={text => setText(addInput)}
+                value={phyCond}
+                onChangeText={text => setPhyCond(text)}
              /> 
                           <TextInput style = {styles.addInput}
                 placeholder = "Awareness of illness"
-                onChangeText={text => setText(addInput)}
+                value={illness}
+                onChangeText={text => setIllness(text)}
              /> 
                                        <TextInput style = {styles.addInput}
                 placeholder = "Hygience"
-                onChangeText={text => setText(addInput)}
+                value={hygience}
+                onChangeText={text => setHygience(text)}
              /> 
              
 
 
    <View style={styles.APButtonField}>
-               <TouchableOpacity   style={styles.APButton}  onPress={()=>{navigation.navigate('MenuScreenNurse') }}>
+               <TouchableOpacity   style={styles.APButton}  onPress={()=>{navigation.goBack() }}>
                   <Text style={styles.buttonText}>Back</Text>
                </TouchableOpacity>
-               <TouchableOpacity   style={styles.APButton}  onPress={()=>{navigation.navigate('MenuScreenNurse')}}>
+               <TouchableOpacity   style={styles.APButton}  onPress={onPressAdd}>
                    <Text style={styles.buttonText}>Add</Text>
                </TouchableOpacity>
                </View>

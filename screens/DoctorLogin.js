@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { useState } from 'react';
 import { View, Text, TouchableOpacity, TextInput } from 'react-native';
 import styles from './styles';
+import {signOut } from "firebase/auth";
+import { auth } from '../firebase/config';
 
 const DoctorLogin =({ navigation }) => {
     const [Email, setEmail] = useState('');

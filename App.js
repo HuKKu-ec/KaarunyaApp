@@ -34,9 +34,9 @@ const MyStack=()=> {
   return (
     <Stack.Navigator>
       {/* <Stack.Screen name="Home" component={HomeScreen} options={{headerShown: false}} /> */}
-      <Stack.Screen name="LoginPageMain" component={LoginScreenMain} options={{headerShown: false}} />
+      <Stack.Screen name="LoginScreenMain" component={LoginScreenMain} options={{headerShown: false}} />
       <Stack.Screen name="Notifications" component={NotificationsScreen} options={{headerShown: false}} />
-      <Stack.Screen name="Profile" component={ProfileScreen} options={{headerShown: false}} />
+      <Stack.Screen name="ProfileScreen" component={ProfileScreen} options={{headerShown: false}} />
       <Stack.Screen name="CreateCenter" component={CreateCenter} options={{headerShown: false}}/>
       <Stack.Screen name="Settings" component={SettingsScreen} options={{headerShown: false}}/>
       <Stack.Screen name="DoctorLogin" component={DoctorLogin} options={{headerShown:false}}/>

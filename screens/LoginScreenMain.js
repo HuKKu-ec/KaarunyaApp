@@ -3,22 +3,32 @@ import { useState } from 'react';
 import { View,Button, Text, TouchableOpacity,Image, TextInput } from 'react-native'
 import styles from './styles'
 import Logo from '../assets/logo.png'
+import {onAuthStateChanged, signInWithEmailAndPassword} from "firebase/auth";
+import {auth} from '../firebase/config'
+
 const LoginScreenMain =({ navigation }) => {
   const Center=[{cid:'A11',password:'123'},{cid:'A12',password:'1234'}];
-  const [centerId, setCenterId] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-    useEffect(() => {
-      for(let i=0;i<Center.length;i++){
-        if(`${Center[`${i}`].cid}`===centerId && `${Center[`${i}`].password}`===password){
-          navigation.navigate('Profile');
-          
-        }
+  const handleLogin=()=>{
+    signInWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    navigation.navigate('ProfileScreen')
+    alert(user.uid)
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    alert(errorMessage)
+  });
+
+  }
+    
       
-        }
-        
-      
-      
-    },[centerId,password]);
+  
       return (
         
         
@@ -30,18 +40,21 @@ const LoginScreenMain =({ navigation }) => {
               
               <TextInput style = {styles.input}
               
-                placeholder = "Center ID"
+                placeholder = "Email"
                 autoCapitalize = "none"
-                onChangeText={centerId => {setCenterId(centerId)}}
-                defaultValue={centerId}
+                onChangeText={text => {setEmail(text)}}
+                value={email}
             />
               <TextInput style = {styles.input}
                 placeholder = "Password"
                 autoCapitalize = "none"
-                onChangeText={password => setPassword(password)}
-                defaultValue={password}
+                onChangeText={text => setPassword(text)}
+                value={password}
                 secureTextEntry={true}
              />  
+                             <TouchableOpacity  onPress={handleLogin} style={{borderStyle:'solid',borderColor:'#000',padding:'3%',paddingLeft:'8%',paddingRight:'8%',borderRadius:50,borderStyle:'solid',borderColor:'#000',borderWidth:1,marginTop:20}}>
+                   <Text style={{color:'#000'}}>LogIn</Text>
+                </TouchableOpacity>
 
   <View style={styles.createCenter}>
     <TouchableOpacity   style={styles.button2}  onPress={()=> navigation.navigate('CreateCenter')}>
@@ -53,3 +66,11 @@ const LoginScreenMain =({ navigation }) => {
    }
 
 export default LoginScreenMain;
+export const useAuth=()=>{
+  const [currentUser,setCurrentUser]=useState('');
+  useEffect(()=>{
+    const unsub=onAuthStateChanged(auth,user=>setCurrentUser(user))
+    return unsub;
+  },[])
+  return currentUser;
+}

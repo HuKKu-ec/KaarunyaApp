@@ -11,6 +11,7 @@ const DoctorPager = ({navigation,route}) => {
   const [visitDoc,setVisitDoc]=useState([])
   const [visitNurse,setVisitNurse]=useState([])
   const [visitVol,setVisitVol]=useState([])
+  const [Profile,setProfile]=useState([])
  
   const NurseVisitData=async()=>{
     const q=query(collection(db,'visitNurse'));
@@ -40,11 +41,13 @@ const DoctorPager = ({navigation,route}) => {
     }));
     setVisitVol(data)
   }
+
   useEffect(()=>{
     
     NurseVisitData()
     DoctorVisitData()
     VolVisitData()
+   
    
   },[])
   
@@ -170,11 +173,41 @@ const DoctorPager = ({navigation,route}) => {
       <Text style={{backgroundColor:'#e5e5e5',padding:10}}>Ecconomical:{value.ecconomical}</Text>
       <Text style={{backgroundColor:'#e5e5e5',padding:10}}>Educational:{value.educational}</Text>
       <Text style={{backgroundColor:'#e5e5e5',padding:10}}>Mental Condition:{value.mental}</Text>
+      <Text style={{backgroundColor:'#e5e5e5',padding:10}}>Caring of Patient:{value.caring}</Text>
+      
     </CollapseBody>
 </Collapse>
 </View>
         )})}
-        </View></ScrollView>
+        </View>
+        </ScrollView>
+
+        <ScrollView>
+        <View style={{backgroundColor:'#2c6b82'}}>
+        <View style={{width:'90%',margin:20}}  key="4">
+          <View style={styles.page} >
+        <Text style={{marginTop:'15%',alignItems:'center',color: '#fff',fontWeight: 'bold',fontSize: 40,marginBottom:'8%'}}>Profile</Text>
+        </View>
+        <CollapseBody>
+      <Text style={{backgroundColor:'#fff',padding:10,}}>Name:{route.params.value.name}</Text>
+      <Text style={{backgroundColor:'#fff',padding:10,}}>Age:{route.params.value.age}</Text>
+
+      <Text style={{backgroundColor:'#fff',padding:10,}}>Gender:{route.params.value.gender}</Text>
+      <Text style={{backgroundColor:'#fff',padding:10,}}>Phone:{route.params.value.name}</Text>
+      <Text style={{backgroundColor:'#fff',padding:10,}}>Address:{route.params.value.address}</Text>
+      <Text style={{backgroundColor:'#fff',padding:10,}}>Panchayath:{route.params.value.panchayath}</Text>
+      <Text style={{backgroundColor:'#fff',padding:10,}}>Ward Number:{route.params.value.ward}</Text>
+      <Text style={{backgroundColor:'#fff',padding:10,}}>Guardian Name:{route.params.value.gname}</Text>
+      <Text style={{backgroundColor:'#fff',padding:10,}}>Guardian Phone Number:{route.params.value.gphone}</Text>
+      <Text style={{backgroundColor:'#fff',padding:10,}}>Hobbies:{route.params.value.hobbies}</Text>
+      <Text style={{backgroundColor:'#fff',padding:10,}}>Ration Card:{route.params.value.cardColor}</Text>
+      <Text style={{backgroundColor:'#fff',padding:10,}}>Pension:{route.params.value.pension}</Text>
+      <Text style={{backgroundColor:'#fff',padding:10,}}>Insurance Details:{route.params.value.inshurance}</Text>
+      <Text style={{backgroundColor:'#fff',padding:10,}}>Other:{route.params.value.other}</Text>
+      <Text style={{backgroundColor:'#fff',padding:10,}}>Nurse Note:{route.params.value.nurseNote}</Text>
+    </CollapseBody>
+        </View>
+          </View></ScrollView>
       </PagerView>
     </View>
   );

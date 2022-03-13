@@ -15,6 +15,7 @@ const AddDetailsVol=({ navigation,route }) => {
     const [educational, setEducational] = useState('');
     const [mental, setMental] = useState('');
     const [volName, setVolName] = useState('');
+    const [caring,setCaring]=useState('');
 
     const onPressAdd=()=>{
       const myDoc=collection(db,"visitVol")
@@ -26,7 +27,8 @@ const AddDetailsVol=({ navigation,route }) => {
          age,
          ecconomical,
          educational,
-         mental
+         mental,
+         caring
       }
      
       addDoc(myDoc,docData).then(()=>{alert('Added')}).catch((error)=>{alert(error.message)})
@@ -65,6 +67,11 @@ const AddDetailsVol=({ navigation,route }) => {
              value={mental}
              onChangeText={text => setMental(text)}
           /> 
+                              <TextInput style = {styles.addInput}
+             placeholder = "Caring of the Patient"
+             value={caring}
+             onChangeText={text => setCaring(text)}
+          /> 
 
             <View style={styles.APButtonField}>
                <TouchableOpacity   style={styles.APButton}  onPress={()=>{navigation.navigate('MenuScreenVol') }}>
@@ -80,3 +87,4 @@ const AddDetailsVol=({ navigation,route }) => {
   }
 
   export default AddDetailsVol;
+  //family status

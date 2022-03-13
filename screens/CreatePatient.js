@@ -2,12 +2,16 @@ import * as React from 'react';
 import { TextInput,Text, View,TouchableOpacity,ScrollView } from 'react-native';
 import styles from './styles';
 import { useState } from 'react';
-import { doc ,setDoc } from 'firebase/firestore';
-import { db } from '../firebase/config';
+
 import {useAuth} from './LoginScreenMain'
+import { db} from '../firebase/config';
+import { addDoc,collection } from 'firebase/firestore';
+
+import { RadioButton } from 'react-native-paper';
 const CreatePatient=({ navigation }) => {
     const [name, setName] = useState('');
     const [pid, setPid] = useState('');
+    const [gender, setGender] =useState('');
     const [age,setAge]=useState('');
     const [phone,setPhone]=useState('')
     const [address,setAddress]=useState('')
@@ -16,17 +20,19 @@ const CreatePatient=({ navigation }) => {
     const [gname,setGname]=useState('')
     const [gphone,setGphone]=useState('')
     const [hobbies,setHobbies]=useState('')
+    const [cardColor,setCardColor]=useState('')
+    const [pension,setPension]=useState('')
     const [inshurance,setInshurance]=useState('')
     const [other,setOther]=useState('')
     const [nurseNote,setNurseNote]=useState('')
     const currentUser=useAuth();
     const PatientCreate=()=>{
-
-      const myDoc=doc(db,"CreatePatient",`${pid}`)
+      const myDoc=collection(db,"CreatePatient")
       const docData={
          currentUser:`${currentUser.uid}`,
          name,
          pid,
+         gender,
          age,
          phone,
          address,
@@ -35,11 +41,13 @@ const CreatePatient=({ navigation }) => {
          gname,
          gphone,
          hobbies,
+         cardColor,
+         pension,
          inshurance,
          other,
          nurseNote
       }
-      setDoc(myDoc,docData).then(()=>{
+      addDoc(myDoc,docData).then(()=>{
          alert(`Patient named ${name} is created!`)
          navigation.goBack()
    }).catch((error)=>{alert(`${error.massege}`)})
@@ -62,6 +70,31 @@ const CreatePatient=({ navigation }) => {
                 value={pid}
                 onChangeText={text => setPid(text)}
              /> 
+             <Text style={{padding:6,fontWeight:'bold',fontSize:20,marginRight:'70%'}}>Gender:</Text>
+             <View style={{flexDirection:'row'}}>
+             
+                <Text style={{padding:6,}}>Male</Text>
+             <RadioButton
+        value="Male"
+        status={ gender === 'Male' ? 'checked' : 'unchecked' }
+        onPress={() => setGender('Male')}
+        color="#00ACEE"
+      />
+      <Text style={{padding:6}}>Female</Text>
+                  <RadioButton
+        value="Female"
+        status={ gender === 'Female' ? 'checked' : 'unchecked' }
+        onPress={() => setGender('Female')}
+        color="#00ACEE"
+      />
+      <Text style={{padding:6}}>Other</Text>
+      <RadioButton
+        value="second"
+        status={ gender === 'Other' ? 'checked' : 'unchecked' }
+        onPress={() => setGender('Other')}
+        color="#00ACEE"
+      /></View>
+      
                  <TextInput style = {styles.addInput}
                 placeholder = "Age"
                 vlaue={age}
@@ -106,6 +139,61 @@ const CreatePatient=({ navigation }) => {
                 onChangeText={text => setHobbies(text)}
             />
            <Text style={{fontSize:25}}>Economical Conditions</Text>
+
+           <Text style={{padding:6,fontWeight:'bold',fontSize:20,marginRight:'60%',paddingTop:30}}>Ration Crad:</Text>
+             <View style={{flexDirection:'row'}}>
+             
+                <Text style={{padding:6,}}>Yellow</Text>
+             <RadioButton
+        value="Yellow"
+        status={ cardColor === 'Yellow' ? 'checked' : 'unchecked' }
+        onPress={() => setCardColor('Yellow')}
+        color="#00ACEE"
+      />
+      <Text style={{padding:6,}}>Pink</Text>
+                   <RadioButton
+        value="Pink"
+        status={ cardColor === 'Pink' ? 'checked' : 'unchecked' }
+        onPress={() => setCardColor('Pink')}
+        color="#00ACEE"
+      />
+      <Text style={{padding:6,}}>Blue</Text>
+                   <RadioButton
+        value="Blue"
+        status={ cardColor === 'Blue' ? 'checked' : 'unchecked' }
+        onPress={() => setCardColor('Blue')}
+        color="#00ACEE"
+      />
+      <Text style={{padding:6,}}>White</Text>
+                   <RadioButton
+        value="White"
+        status={ cardColor === 'White' ? 'checked' : 'unchecked' }
+        onPress={() => setCardColor('White')}
+        color="#00ACEE"
+      />
+
+      </View>
+
+           
+           <Text style={{padding:6,fontWeight:'bold',fontSize:20,marginRight:'70%',paddingTop:30}}>Pension:</Text>
+             <View style={{flexDirection:'row'}}>
+             
+                <Text style={{padding:6,}}>Yes</Text>
+             <RadioButton
+        value="Yes"
+        status={ pension === 'Yes' ? 'checked' : 'unchecked' }
+        onPress={() => setPension('Yes')}
+        color="#00ACEE"
+      />
+      <Text style={{padding:6}}>No</Text>
+                  <RadioButton
+        value="No"
+        status={ pension === 'No' ? 'checked' : 'unchecked' }
+        onPress={() => setPension('No')}
+        color="#00ACEE"
+      />
+      </View>
+
               <TextInput style = {styles.addInput}
                 placeholder = "Insurance Details"
                 value={inshurance}

@@ -18,6 +18,7 @@ import MenuScreenDoctor from './screens/MenuScreenDoctor';
 import MenuScreenNurse from './screens/MenuScreenNurse';
 import MenuScreenVol from './screens/MenuScreenVol';
 import CreateNurse from './screens/CreateNurse';
+import CenterDetails from './screens/CenterDetails';
 import { useState } from 'react/cjs/react.development';
 import { View } from 'react-native';
 // import DoctorDrawer from './screens/DoctorDrawer';
@@ -37,6 +38,7 @@ const MyStack=()=> {
       <Stack.Screen name="LoginScreenMain" component={LoginScreenMain} options={{headerShown: false}} />
       <Stack.Screen name="Notifications" component={NotificationsScreen} options={{headerShown: false}} />
       <Stack.Screen name="ProfileScreen" component={ProfileScreen} options={{headerShown: false}} />
+      <Stack.Screen name="CenterDetails" component={CenterDetails} options={{headerShown: false}} />
       <Stack.Screen name="CreateCenter" component={CreateCenter} options={{headerShown: false}}/>
       <Stack.Screen name="Settings" component={SettingsScreen} options={{headerShown: false}}/>
       <Stack.Screen name="DoctorLogin" component={DoctorLogin} options={{headerShown:false}}/>

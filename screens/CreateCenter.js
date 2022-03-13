@@ -21,7 +21,7 @@ const handleSubmit=()=>{
   
    .then((userCredential) => {
      const user = userCredential.user;
-     const myDoc=doc(db,"CenterAuth",`${centerId}`)
+     const myDoc=doc(db,"CenterAuth",`${user.uid}`)
      const docData={
        uid:`${user.uid}`,
        email,

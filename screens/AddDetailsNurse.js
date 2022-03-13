@@ -3,7 +3,7 @@ import { Button, TextInput,Text, View,TouchableOpacity,ScrollView} from 'react-n
 import styles from './styles';
 import { useState } from 'react';
 import { db} from '../firebase/config';
-import { doc ,addDoc, updateDoc,collection } from 'firebase/firestore';
+import { addDoc,collection } from 'firebase/firestore';
 
 
 

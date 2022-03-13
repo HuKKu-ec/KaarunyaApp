@@ -8,8 +8,9 @@ const ProfileScreen=({ navigation })=> {
   const currentUser=useAuth();
   return (
     <View style={styles.background}>
-      <Text style={{marginTop:50}}>{currentUser.email}</Text>
-      
+      <TouchableOpacity onPress={()=> navigation.navigate('CenterDetails')} >
+      <Text style={{marginTop:50,backgroundColor:'#206A8A',color:'#fff',padding:10,borderRadius:5}}>Center Details</Text>
+      </TouchableOpacity>
         <TouchableOpacity   style={styles.buttonStyle}  onPress={()=> navigation.navigate('MenuScreenDoctor')}>
           <Text style={styles.textProf}>Doctor</Text>
         </TouchableOpacity>

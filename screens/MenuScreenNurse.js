@@ -3,7 +3,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer'
 import 'react-native-gesture-handler'
 import ProfileScreen from './ProfileScreen';
 import { useState ,useEffect} from "react";
-import {TouchableOpacity,Text, View,TextInput,ScrollView } from 'react-native';
+import { Text, View,ScrollView,Image} from 'react-native';
 import styles from './styles';
 import { Button,Card} from 'react-native-elements'
 import CreatePatient from './CreatePatient';
@@ -12,10 +12,12 @@ import { db,auth } from '../firebase/config';
 import { collection, doc ,getDocs ,query} from 'firebase/firestore';
 import LoginScreenMain from './LoginScreenMain';
 import {useAuth} from './LoginScreenMain'
-
+import Delete from '../assets/Delete.png'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 const MenuScreenNurse=({ navigation })=> {
 const [Patient,setPatient]=useState([])
 const currentUser=useAuth();
+
 const patientData=async()=>{
   const q=query(collection(db,'CreatePatient'));
   querySnapshot=await getDocs(q)
@@ -24,16 +26,15 @@ const patientData=async()=>{
     id:doc.id
   }));
   setPatient(data)
-
-  
-
 }
 useEffect(()=>{
   
 patientData()
  
 },[])
-  
+  const deleteHandle=()=>{
+    console.log('clickooo')
+  }
   
   return (
   <>
@@ -48,30 +49,36 @@ patientData()
           
 <View  style={styles.cardView}>
 
+
           {
 Patient.map((value,i)=>{
      if(value.currentUser==`${currentUser.uid}`)         return(
 
 <Card key={i} Style={styles.cardModel}>
+  <TouchableOpacity onPress={deleteHandle}>
+<Image style={{marginLeft:'90%'}} source={Delete} /></TouchableOpacity>
 <View style={{margin:20,width:'100%',flexDirection:'row'}}>
+  
   <Text >Name:{value.name}</Text>
   <Text style={{marginLeft:'25%'}}>Age:{value.age}</Text>
-  
   </View>
   <View style={{margin:20,width:'100%',flexDirection:'row'}}>
   
   <Button    
-  buttonStyle={{marginRight: '25%',}}          
+    buttonStyle={{
+    marginRight: '25%'
+  }}          
    title='show'
    onPress={()=>navigation.navigate('NursePager',{value})}
    />
-    
+
   <Button 
-  buttonStyle={{
+    buttonStyle={{
     marginLeft: '25%',
   }}
-  title='add details'
-  onPress={()=>{navigation.navigate('AddDetailsNurse',{value})}}/>
+    title='add details'
+    onPress={()=>{navigation.navigate('AddDetailsNurse',{value})}}
+  />
   
   </View>
 </Card>
@@ -91,12 +98,10 @@ Patient.map((value,i)=>{
 const NurseDrawer = () => {
     const Drawer = createDrawerNavigator();
     return ( 
-        
-       
+
         <Drawer.Navigator initialRouteName="MenuScreenNurse">
         <Drawer.Screen name="Nurse" component={MenuScreenNurse}/>
         <Drawer.Screen name="Create Patient" component={CreatePatient}/>
-        
         <Drawer.Screen name="Log Out" component={LoginScreenMain} onPress={()=>{
           signOut(auth).then(() => {
             // Sign-out successful.

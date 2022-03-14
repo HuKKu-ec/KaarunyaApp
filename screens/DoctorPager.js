@@ -2,12 +2,12 @@ import React, { useState ,useEffect} from 'react';
 import { StyleSheet, View, Text,ScrollView } from 'react-native';
 import PagerView from 'react-native-pager-view';
 import {Collapse,CollapseHeader, CollapseBody} from 'accordion-collapse-react-native';
-
 import { collection,getDocs ,query} from 'firebase/firestore';
 import { db} from '../firebase/config';
 
 
 const DoctorPager = ({navigation,route}) => {
+  
   const [visitDoc,setVisitDoc]=useState([])
   const [visitNurse,setVisitNurse]=useState([])
   const [visitVol,setVisitVol]=useState([])
@@ -21,6 +21,7 @@ const DoctorPager = ({navigation,route}) => {
       id:doc.id
     }));
     setVisitNurse(data)
+   
   }
 
   const DoctorVisitData=async()=>{
@@ -86,11 +87,8 @@ const DoctorPager = ({navigation,route}) => {
       <Text style={{backgroundColor:'#e5e5e5',padding:10}}>Bad Habits:{value.badHabit}</Text>
 
       <Text style={{backgroundColor:'#e5e5e5',padding:10}}>Primary Condition:{value.primary}</Text>
-      <Text style={{backgroundColor:'#e5e5e5',padding:10}}>Hobbies:{value.hobbie}</Text>
 
-      <Text style={{backgroundColor:'#e5e5e5',padding:10}}>Rattion Card:{value.cardColor}</Text>
-      <Text style={{backgroundColor:'#e5e5e5',padding:10}}>Pension:{value.pension}</Text>
-      <Text style={{backgroundColor:'#e5e5e5',padding:10}}>Insurence Details:{value.insurence}</Text>
+
 
       <Text style={{backgroundColor:'#e5e5e5',padding:10}}>Pulse:{value.pulse}</Text>
       <Text style={{backgroundColor:'#e5e5e5',padding:10}}>BP:{value.bp}</Text>

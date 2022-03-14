@@ -30,7 +30,7 @@ const handleSubmit=()=>{
      }
      setDoc(myDoc,docData)
      // ...
-   }).then(()=>{}).then(()=>{
+   }).then(()=>{
       alert('A Center is created')
       navigation.navigate('LoginScreenMain')
 })
@@ -51,13 +51,13 @@ const handleSubmit=()=>{
         <View style={styles.textContent}>
          <Text style={styles.createHead}>Create a Center</Text></View>
         
-              <TextInput style = {styles.createInput}
+              <TextInput style = {styles.addInput}
                 placeholder = "Center ID"
                 autoCapitalize = "none"
                 value={centerId}
                 onChangeText={text => setCenterId(text)}
             />
-              <TextInput style = {styles.createInput}
+              <TextInput style = {styles.addInput}
                 placeholder = "Name of the center"
                 value={centerName}
                 onChangeText={text => setCenterName(text)}
@@ -70,19 +70,19 @@ const handleSubmit=()=>{
                 placeholder = "PinCode"
                 onChangeText={pincode => setPincode(pincode)}
              />  */}
-                           <TextInput style = {styles.createInput}
+                           <TextInput style = {styles.addInput}
                 placeholder = "Email"
                 value={email}
                 onChangeText={text => setEmail(text)}
              /> 
            
-                 <TextInput style = {styles.createInput}
+                 <TextInput style = {styles.addInput}
                 placeholder = "Enter Password"
                 secureTextEntry={true}
                 value={password}
                 onChangeText={text => setPassword(text)}
              /> 
-                 <TextInput style = {styles.createInput}
+                 <TextInput style = {styles.addInput}
                 placeholder = "Confirm Password"
                 secureTextEntry={true}
                 value={ConPassword}

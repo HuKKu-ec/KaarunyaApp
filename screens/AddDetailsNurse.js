@@ -17,10 +17,6 @@ const AddDetailsNurse=({ navigation,route }) => {
     const [medicines, setMedicines] = useState('');
     const [badHabit, setBadHabit] = useState('');
     const [primary, setPrimary] = useState('');
-    const [hobbie, setHobbie] = useState('');
-    const [cardColor, setCardColor] = useState('');
-    const [pension, setPension] = useState('');
-    const [insurence, setInsurence] = useState('');
     const [pulse, setPulse] = useState('');
     const [bp, setBp] = useState('');
     const [temp, setTemp] = useState('');
@@ -43,10 +39,6 @@ const AddDetailsNurse=({ navigation,route }) => {
          medicines,
          badHabit,
          primary,
-         hobbie,
-         cardColor,
-         pension,
-         insurence,
          pulse,
          bp,
          temp,
@@ -128,27 +120,8 @@ const AddDetailsNurse=({ navigation,route }) => {
                 value={primary}
                 onChangeText={text => setPrimary(text)}
              /> 
-      <TextInput style = {styles.addInput}
-                placeholder = "Hobbie"
-                value={hobbie}
-                onChangeText={text => setHobbie(text)}
-             /> 
-             <Text style={{fontSize:25}}>Economical Condition </Text>
-             <TextInput style = {styles.addInput}
-                placeholder = "Rattion Card Color"
-                value={cardColor}
-                onChangeText={text => setCardColor(text)}
-             /> 
-                          <TextInput style = {styles.addInput}
-                placeholder = "Pension"
-                value={pension}
-                onChangeText={text => setPension(text)}
-             /> 
-                          <TextInput style = {styles.addInput}
-                placeholder = "Insurence Details"
-                value={insurence}
-                onChangeText={text => setInsurence(text)}
-             /> 
+
+             
              <Text style={{fontSize:25}}>Physical Condition </Text>
              <TextInput style = {styles.addInput}
                 placeholder = "Pulse"

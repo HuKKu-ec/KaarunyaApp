@@ -129,11 +129,7 @@ const NursePager = ({navigation,route}) => {
       <Text style={{backgroundColor:'#e5e5e5',padding:10}}>Bad Habits:{value.badHabit}</Text>
 
       <Text style={{backgroundColor:'#e5e5e5',padding:10}}>Primary Condition:{value.primary}</Text>
-      <Text style={{backgroundColor:'#e5e5e5',padding:10}}>Hobbies:{value.hobbie}</Text>
 
-      <Text style={{backgroundColor:'#e5e5e5',padding:10}}>Rattion Card:{value.cardColor}</Text>
-      <Text style={{backgroundColor:'#e5e5e5',padding:10}}>Pension:{value.pension}</Text>
-      <Text style={{backgroundColor:'#e5e5e5',padding:10}}>Insurence Details:{value.insurence}</Text>
 
       <Text style={{backgroundColor:'#e5e5e5',padding:10}}>Pulse:{value.pulse}</Text>
       <Text style={{backgroundColor:'#e5e5e5',padding:10}}>BP:{value.bp}</Text>

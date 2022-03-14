@@ -3,20 +3,43 @@ import { createDrawerNavigator } from '@react-navigation/drawer'
 import 'react-native-gesture-handler'
 import ProfileScreen from './ProfileScreen';
 import { useState ,useEffect} from "react";
-import { Text, View,ScrollView,Image} from 'react-native';
+import { Text, View,ScrollView,Image,Alert,ActivityIndicator} from 'react-native';
 import styles from './styles';
 import { Button,Card} from 'react-native-elements'
 import CreatePatient from './CreatePatient';
 import {signOut } from "firebase/auth";
 import { db,auth } from '../firebase/config';
-import { collection, doc ,getDocs ,query} from 'firebase/firestore';
+import { collection, doc ,getDocs ,query,deleteDoc} from 'firebase/firestore';
 import LoginScreenMain from './LoginScreenMain';
 import {useAuth} from './LoginScreenMain'
 import Delete from '../assets/Delete.png'
 import { TouchableOpacity } from 'react-native-gesture-handler';
+
+
 const MenuScreenNurse=({ navigation })=> {
+const [onLoad,setOnLoad]=useState(true)
 const [Patient,setPatient]=useState([])
+const [PreviosDeleteId,setPreviosDeleteId]=useState('')
 const currentUser=useAuth();
+const deleteHandler=(id)=>{
+  Alert.alert('Alert','Do you want to delete this Patient',
+  [
+    {
+      text:'ok',onPress:async()=>{
+  await deleteDoc(doc(db, "CreatePatient",`${id}`));
+  setPreviosDeleteId(id)
+      }
+    },{
+      text:'cancel',onPress:()=>{
+        alert('canceled')
+      }
+
+    }
+
+  ]
+  
+  )
+}
 
 const patientData=async()=>{
   const q=query(collection(db,'CreatePatient'));
@@ -26,18 +49,19 @@ const patientData=async()=>{
     id:doc.id
   }));
   setPatient(data)
+  setOnLoad(false)
 }
 useEffect(()=>{
   
 patientData()
  
-},[])
-  const deleteHandle=()=>{
-    console.log('clickooo')
-  }
-  
+},[Patient,PreviosDeleteId]);
+
+
+
   return (
   <>
+{onLoad?<View style={{ flex: 1,justifyContent: "center",backgroundColor:'#fff'}}><ActivityIndicator size="large" color="#0000ff" /></View>:
     <View style={styles.background}>
        {/* <TextInput style = {styles.inputSearch}
               placeholder = "Search"
@@ -52,11 +76,14 @@ patientData()
 
           {
 Patient.map((value,i)=>{
-     if(value.currentUser==`${currentUser.uid}`)         return(
+  
+     if(value.currentUser==`${currentUser.uid}`)        return(
 
 <Card key={i} Style={styles.cardModel}>
-  <TouchableOpacity onPress={deleteHandle}>
-<Image style={{marginLeft:'90%'}} source={Delete} /></TouchableOpacity>
+<TouchableOpacity onPress={()=>{deleteHandler(value.id)}}>
+<Image style={{marginLeft:'90%'}} source={Delete}/>
+</TouchableOpacity>
+
 <View style={{margin:20,width:'100%',flexDirection:'row'}}>
   
   <Text >Name:{value.name}</Text>
@@ -87,11 +114,10 @@ Patient.map((value,i)=>{
           </View>
 
 </ScrollView>
-       {/* <TouchableOpacity   style={styles.buttonback}  onPress={()=> navigation.navigate('Profile')}>
-          <Text style={styles.text3}>{'<'}</Text>
-        </TouchableOpacity> */}
+
         
     </View>
+}
     </>
   );
 }

@@ -3,7 +3,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer'
 import 'react-native-gesture-handler'
 import ProfileScreen from './ProfileScreen';
 import { useState,useEffect } from "react";
-import {TouchableOpacity,Text, View,TextInput,ScrollView } from 'react-native';
+import {TouchableOpacity,Text, View,TextInput,ScrollView ,ActivityIndicator} from 'react-native';
 import styles from './styles';
 import { Button,Card} from 'react-native-elements'
 import {signOut } from "firebase/auth";
@@ -13,6 +13,7 @@ import { collection, doc ,getDocs ,query} from 'firebase/firestore';
 import {useAuth} from './LoginScreenMain'
 
 const MenuScreenVol=({ navigation })=> {
+  const [onLoad,setOnLoad]=useState(true)
   const [Saerch,setSearch]=useState('');
   const [Patient,setPatient]=useState([])
   const currentUser=useAuth();
@@ -24,6 +25,7 @@ const MenuScreenVol=({ navigation })=> {
       id:doc.id
     }));
     setPatient(data)
+    setOnLoad(false)
   }
   useEffect(()=>{
     
@@ -32,6 +34,7 @@ const MenuScreenVol=({ navigation })=> {
   },[Patient])
   return (
   <>
+  {onLoad?<View style={{ flex: 1,justifyContent: "center",backgroundColor:'#fff'}}><ActivityIndicator size="large" color="#0000ff" /></View>:
     <View style={styles.background}>
        {/* <TextInput style = {styles.inputSearch}
               placeholder = "Search"
@@ -78,7 +81,7 @@ Patient.map((value,i)=>{
           <Text style={styles.text3}>{'<'}</Text>
         </TouchableOpacity> */}
         
-    </View>
+    </View>}
     </>
   );
 }

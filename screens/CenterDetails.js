@@ -1,11 +1,12 @@
 import React, { useState ,useEffect} from 'react';
-import { Button, TextInput,Text, View,TouchableOpacity,ScrollView} from 'react-native';
+import { Button, TextInput,Text, View,TouchableOpacity,ScrollView,ActivityIndicator} from 'react-native';
 import styles from './styles';
 import {Collapse,CollapseHeader, CollapseBody} from 'accordion-collapse-react-native';
 import { collection,getDocs ,query} from 'firebase/firestore';
 import { db} from '../firebase/config';
 import {useAuth} from './LoginScreenMain'
 const CreateCenter=({ navigation }) => {
+  const [onLoad,setOnLoad]=useState(true)
   const [center,setCenter]=useState([])
   const currentUser=useAuth();
 
@@ -17,6 +18,8 @@ const CreateCenter=({ navigation }) => {
       id:doc.id
     }));
     setCenter(data)
+    setOnLoad(false)
+    
   }
   useEffect(()=>{
     
@@ -25,6 +28,18 @@ const CreateCenter=({ navigation }) => {
   },[])
   
     return (
+      <>
+      {onLoad?<>
+        <View style={{backgroundColor:'#2c6b82',alignItems:'center'}}>
+          <View style={styles.page} >
+        <Text style={{marginTop:'15%',alignItems:'center',color: '#fff',fontWeight: 'bold',fontSize: 40,marginBottom:'8%'}}>Center Details</Text>
+        </View>
+
+          </View>
+      <View style={{ flex: 1,justifyContent: "center",backgroundColor:'#fff'}}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+      </>:
      
                   <ScrollView>
         <View style={{backgroundColor:'#2c6b82',alignItems:'center'}}>
@@ -46,9 +61,9 @@ const CreateCenter=({ navigation }) => {
     </CollapseBody>)})}
     <Button title='back' onPress={()=>{navigation.goBack()}}/>
     </ScrollView>
-
+    }
                
-              
+               </>       
     );
   }
 
